@@ -23,44 +23,44 @@ function App() {
     });
   };
 
-  const updateUI = async (state)=>{
+  const updateUI = async (state) => {
     const randIndex = Math.floor(Math.random() * 20);
-      let searchWord = "sun";
-      if (state.hp === 100) {
-        // monster is full health
-        searchWord = "health";
-      } else if (state.hp <= 99 && state.hp >= 80) {
-        // monster is content
-        searchWord = "content";
-      } else if (state.hp <= 79 && state.hp >= 60) {
-        // monster is irritated
-        searchWord = "irritated";
-      } else if (state.hp <= 59 && state.hp >= 40) {
-        // monster is angry
-        searchWord = "angry";
-      } else if (state.hp <= 39 && state.hp >= 20) {
-        // monster is sick
-        searchWord = "sick";
-      } else if (state.hp <= 19 && state.hp >= 1) {
-        // monster is dying
-        searchWord = "dying";
-      } else if (state.hp <= 0) {
-        // monster is dead (RIP)
-        //TODO: CHANGE THIS TO STATE 6
-        searchWord = "RIP";
-      }
+    let searchWord = "sun";
+    if (state.hp === 100) {
+      // monster is full health
+      searchWord = "health";
+    } else if (state.hp <= 99 && state.hp >= 80) {
+      // monster is content
+      searchWord = "content";
+    } else if (state.hp <= 79 && state.hp >= 60) {
+      // monster is irritated
+      searchWord = "irritated";
+    } else if (state.hp <= 59 && state.hp >= 40) {
+      // monster is angry
+      searchWord = "angry";
+    } else if (state.hp <= 39 && state.hp >= 20) {
+      // monster is sick
+      searchWord = "sick";
+    } else if (state.hp <= 19 && state.hp >= 1) {
+      // monster is dying
+      searchWord = "dying";
+    } else if (state.hp <= 0) {
+      // monster is dead (RIP)
+      //TODO: CHANGE THIS TO STATE 6
+      searchWord = "RIP";
+    }
 
-      const jsonRequest = await fetch(
-        `https://api.giphy.com/v1/gifs/search?api_key=Vhj4EBJBldBpxaRX5M18IHEy5hcI0phk&q=${searchWord}&limit=20&offset=0&rating=g&lang=en`
-      );
-      const jsonData = await jsonRequest.json();
-      setImageUrl(jsonData.data[randIndex].images.original.url);
-      setCloserStatus(state);
-  }
+    const jsonRequest = await fetch(
+      `https://api.giphy.com/v1/gifs/search?api_key=Vhj4EBJBldBpxaRX5M18IHEy5hcI0phk&q=${searchWord}&limit=20&offset=0&rating=g&lang=en`
+    );
+    const jsonData = await jsonRequest.json();
+    setImageUrl(jsonData.data[randIndex].images.original.url);
+    setCloserStatus(state);
+  };
 
   useEffect(async () => {
+    setImageUrl("https://happyness.design/Sun_balloon_happyness.png")
     try {
-      console.log("App loading");
       const state = await getStorage();
       updateUI(state);
     } catch (error) {
@@ -75,11 +75,15 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={imageUrl} className="App-logo" alt="logo" />
+        <div class="meter">
+          <span style={{width:`${closerStatus.hp}%`}}></span>
+        </div>
         <p>
           You have <code>{closerStatus.tabCount}</code> opened.
         </p>
         <p>{closerStatus.closerStatus}</p>
+        <img src={imageUrl} className="App-logo" alt="Image"/>
+        
         <a className="App-link" href="https://happyness.design">
           Learn how to be more positively productive ^-^
         </a>
