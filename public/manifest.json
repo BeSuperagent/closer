@@ -9,8 +9,8 @@
   "description": "A chrome extension that helps you be more productive. Fewer tabs = happy CPU pet. More tabs = sad CPU pet.",
   "homepage_url": "https://besuperagent.com",
   "icons": {
-     "128": "logo192.png",
-     "16": "logo512.png"
+     "128": "ninja.png",
+     "16": "ninja.png"
   },
   "manifest_version": 2,
   "name": "Closer",

@@ -59,7 +59,7 @@ function App() {
   };
 
   useEffect(async () => {
-    setImageUrl("https://happyness.design/Sun_balloon_happyness.png")
+    setImageUrl("https://happyness.design/Sun_balloon_happyness.png");
     try {
       const state = await getStorage();
       updateUI(state);
@@ -74,18 +74,24 @@ function App() {
 
   return (
     <div className="App">
+      <div className="logo-container">
+        <img src="./HBD-logo.svg" alt="logo"></img>
+      </div>
       <header className="App-header">
-        <div class="meter">
-          <span style={{width:`${closerStatus.hp}%`}}></span>
+        <div class={`meter ${closerStatus.hp<50?"orange":""} ${closerStatus.hp<20?"red":""}`}>
+          {closerStatus.hp>50?<div className="emoji">😍</div>:null}
+          {closerStatus.hp<50 && closerStatus.hp>20?<div className="emoji">😥</div>:null}
+          {closerStatus.hp<20?<div className="emoji">😭</div>:null}
+          <span style={{ width: `${closerStatus.hp}%` }}></span>
         </div>
         <p>
           You have <code>{closerStatus.tabCount}</code> opened.
         </p>
         <p>{closerStatus.closerStatus}</p>
-        <img src={imageUrl} className="App-logo" alt="Image"/>
-        
+        <img src={imageUrl} className="App-logo" alt="Image" />
+
         <a className="App-link" href="https://happyness.design">
-          Learn how to be more positively productive ^-^
+          Learn tips, tricks and hacks to be more positively productive ^_^
         </a>
       </header>
     </div>
